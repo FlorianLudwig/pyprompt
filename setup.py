@@ -7,6 +7,8 @@ setup(
     version="0.0.1",
     packages=['pyprompt'],
     install_requires=['GitPython==1.0.0'],
+    author='Florian Ludwig',
+    author_email='vierzigundzwei@gmail.com',
     entry_points={
         'console_scripts': [
             'pyprompt = pyprompt.cli:main'
