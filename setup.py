@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import os
 from setuptools import setup
 
 
@@ -12,5 +11,10 @@ setup(
         'console_scripts': [
             'pyprompt = pyprompt.cli:main'
         ],
-    }
+    },
+    license="http://www.apache.org/licenses/LICENSE-2.0",
+    classifiers=[
+        'License :: OSI Approved :: Apache Software License',
+        'Programming Language :: Python :: 2.7'
+    ]
 )

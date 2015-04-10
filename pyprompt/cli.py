@@ -106,7 +106,7 @@ def terminal_size():
 
 
 def main():
-    # colored.
+    # choose background color depending on last return code
     last_return_code = int(sys.argv[1])
     bg = white_bg if last_return_code == 0 else red_bg
     fg = black if last_return_code == 0 else lambda x: x
@@ -128,7 +128,6 @@ def main():
 
     if len(text) < width:
         text += ' ' * (width - len(text) - len(user_name))
-
 
     # write title + return to start
     sys.stdout.write('\033]0;' + path.encode('utf-8') + '\007\r')
