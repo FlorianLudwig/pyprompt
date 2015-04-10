@@ -1,3 +1,9 @@
+"""pyprompt
+
+USAGE
+set PS1 environment variable (for example in your .bashrc)
+PS1="\$(pyprompt \$?)"
+"""
 import socket
 import os
 import pwd
@@ -5,12 +11,6 @@ import sys
 import fcntl
 import termios
 import struct
-
-# USAGE
-# PS1="\$(pyprompt \$?)"
-
-# TODO add terminal title:
-# PS1="\[\033]0;Hello \u@\h: \w\007\]bash\\$ "
 
 
 def color(t, c, bg=0):
@@ -120,6 +120,9 @@ def main():
     else:
         user = bg(fg(user_name)).encode('utf-8')
     path = os.path.abspath('.').decode('utf-8')
+    home = os.path.expanduser('~')
+    if path.startswith(home):
+        path = '~' + path[len(home):]
 
     text = u'@%s %s' % (socket.gethostname(), path)
 
