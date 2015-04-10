@@ -7,6 +7,7 @@ setup(
     version="0.0.1",
     packages=['pyprompt'],
     install_requires=['GitPython==1.0.0'],
+    url='https://github.com/FlorianLudwig/pyprompt',
     author='Florian Ludwig',
     author_email='vierzigundzwei@gmail.com',
     entry_points={
