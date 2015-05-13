@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """pyprompt
 
 USAGE
@@ -11,6 +12,28 @@ import sys
 import fcntl
 import termios
 import struct
+import git
+
+
+GIT_SYMBOLS = {
+    'synced': u"",
+    'dirty_synced': u"*",
+    'unpushed': u"△",
+    'dirty_unpushed': u"▲",
+    'unpulled': u"▽",
+    'dirty_unpulled': u"▼",
+    'unpushed_unpulled': u"⬡",
+    'dirty_unpushed_unpulled': u"⬢"
+}
+
+# PROMPT_SYNCED_SYMBOL=""
+# PROMPT_DIRTY_SYNCED_SYMBOL="*"
+# PROMPT_UNPUSHED_SYMBOL="↑"
+# PROMPT_DIRTY_UNPUSHED_SYMBOL="*↑"
+# PROMPT_UNPULLED_SYMBOL="↓"
+# PROMPT_DIRTY_UNPULLED_SYMBOL="*↓"
+# PROMPT_UNPUSHED_UNPULLED_SYMBOL="*↑↓"
+# PROMPT_DIRTY_UNPUSHED_UNPULLED_SYMBOL="*↑↓"
 
 
 def color(t, c, bg=0):
@@ -105,6 +128,24 @@ def terminal_size():
     return int(cr[1]), int(cr[0])
 
 
+def get_git_status():
+    try:
+        repo = git.Repo()
+    except git.exc.InvalidGitRepositoryError:
+        return ''
+
+    branch = unicode(repo.active_branch)
+    # symbol = []
+    symbol = ''
+    if repo.is_dirty():
+        # symbol += 'dirty'
+        symbol = '*'
+
+    # unpushed = list(repo.iter_commits('{0}..{0}@{{u}}'.format(branch)))
+
+    return symbol + branch
+
+
 def main():
     # choose background color depending on last return code
     last_return_code = int(sys.argv[1])
@@ -125,9 +166,15 @@ def main():
         path = '~' + path[len(home):]
 
     text = u'@%s %s' % (socket.gethostname(), path)
+    right = get_git_status()
 
-    if len(text) < width:
-        text += ' ' * (width - len(text) - len(user_name))
+
+    if len(user_name) + len(text) + len(right) + 1 > width:
+        # to much information for one line!
+        pass
+    else:
+        text += ' ' * (width - len(text) - len(user_name) - len(right))
+        text += right
 
     # write title + return to start
     sys.stdout.write('\033]0;' + path.encode('utf-8') + '\007\r')
