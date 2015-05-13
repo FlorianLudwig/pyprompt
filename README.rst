@@ -21,3 +21,8 @@ usage
     # set PS1 environment variable (for example in your .bashrc)
     PS1="\$(pyprompt \$?)"
 
+Bash Prompts
+------------
+
+* https://github.com/twolfson/sexy-bash-prompt
+* http://www.reddit.com/r/programming/comments/697cu/bash_users_what_do_you_have_for_your_ps1/
