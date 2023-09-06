@@ -6,7 +6,7 @@ setup(
     name="pyprompt",
     version="0.0.2",
     packages=['pyprompt'],
-    install_requires=['GitPython==1.0.1'],
+    install_requires=['GitPython==3.1.34'],
     url='https://github.com/FlorianLudwig/pyprompt',
     author='Florian Ludwig',
     author_email='vierzigundzwei@gmail.com',
